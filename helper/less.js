@@ -33,7 +33,7 @@ module.exports = function(gulp, plugins, config, name, locale, file) { // eslint
       .pipe(plugins.plumber({ errorHandler: plugins.notify.onError('Error: <%= error.message %>') }))
       .pipe(plugins.if(maps, plugins.sourcemaps.init()))
       .pipe(plugins.less({ paths: parentPath.concat('.') }))
-      .pipe(plugins.if(production, plugins.postcss([plugins.cssnano()])))
+      .pipe(plugins.if(production, plugins.postcss([plugins.cssnano()]).pipe(plugins.rename({ suffix: '.min'}))))
       .pipe(plugins.if(postcss.length, plugins.postcss(postcss || [])))
       .pipe(plugins.if(maps, plugins.sourcemaps.write()))
       .pipe(gulp.dest(dest))
